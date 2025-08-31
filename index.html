@@ -82,12 +82,18 @@
 
     .hidden { display: none; }
 
-    img {
-      max-width: 100%;
-      border-radius: 15px;
-      margin: 16px 0;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    }
+#foto {
+  width: 180px;
+  height: 180px;
+  border-radius: 15px;
+  margin: 16px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  object-fit: cover;  /* garante que sempre preencha sem distorcer */
+  display: block;
+  margin-left: auto;
+  margin-right: auto; /* centraliza */
+}
+
 
     .carta {
       font-family: 'La Belle Aurore', cursive;
@@ -361,15 +367,17 @@ function prevSong() {
 
 const fotos = [
   "https://i.ibb.co/5WkZnxpp/image.png", // original
-  "https://i.ibb.co/7dJDmP5P/image.png",
-  "https://i.ibb.co/23KVjjXq/image.png",
-  "https://i.ibb.co/0yvCxLWN/image.png",
-  "https://i.ibb.co/bjTkhMgD/image.png",
-  "https://i.ibb.co/bjYbW3WJ/image.png",
-  "https://i.ibb.co/bqkHwwH/image.png",
-  "https://i.ibb.co/j9fTJ8h4/image.png",
-  "https://i.ibb.co/CKk6C7pY/image.png",
-  "https://i.ibb.co/sp3jnhSd/image.png"
+  "https://i.postimg.cc/j5y4Xrht/IMG-20250815-222941-122.jpg",
+  "https://i.postimg.cc/MKmrw1Vq/IMG-20250820-195341-171.jpg",
+  "https://i.postimg.cc/Xq8KRchP/IMG-20250817-144046-969.jpg",
+  "https://i.postimg.cc/HW4t8dxt/IMG-20250725-124418-514.jpg",
+  "https://i.postimg.cc/CLcHJ7bB/IMG-20250724-013325-922.jpg",
+  "https://i.postimg.cc/9fZ93YwB/IMG-20250712-164126-715.jpg",
+  "https://i.postimg.cc/qRr3p68H/IMG-20250712-164125-426.jpg",
+  "https://i.postimg.cc/ryQrLms7/IMG-20250712-164122-905.jpg",
+  "https://i.postimg.cc/7h6bL3hd/IMG-20250708-215651-627.jpg",
+  "https://i.postimg.cc/52w9b7pj/IMG-20250707-124953607-3.jpg",
+  "https://i.postimg.cc/jjMbSGfq/IMG-20250712-223350-557.jpg"
 ];
 
 let fotoAtual = 0;
