@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ESSENCIAL NO CELULAR -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Para meu amorzinho ❤️</title>
+  <style>
+    /* ====== BASE ====== */
+    :root { --card-max: 500px; }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;          /* fica mais perto do topo no mobile */
+      min-height: 100dvh;                   /* melhor unidade p/ mobile */
+      padding: 24px 16px;                   /* respiro nas bordas */
+      text-align: center;
+      overflow-x: hidden;                   /* evita scroll lateral */
+    }
+
+    .container {
+      background: white;
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      width: min(92vw, var(--card-max));
+      animation: fadeIn 0.7s ease-in-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+
+    input {
+      padding: 12px;
+      border: 2px solid #ee9ca7;
+      border-radius: 10px;
+      outline: none;
+      font-size: 16px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: none;
+      background: #ee9ca7;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { background: #ff6f91; }
+
+    .hidden { display: none; }
+
+    img {
+      max-width: 100%;
+      border-radius: 15px;
+      margin: 16px 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .carta {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #444;
+      text-align: justify;
+    }
+
+    /* ====== Corações ====== */
+    .heart {
+      position: fixed;
+      top: -20px;
+      color: #ff6f91;
+      font-size: 20px;
+      animation: fall linear forwards;
+      z-index: 0;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh); opacity: 0; }
+    }
+
+    /* ====== Mini Player ====== */
+    .player {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border-radius: 20px;
+      padding: 12px 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      display: none;             /* aparece só depois do login */
+      align-items: center;
+      gap: 12px;
+      color: #333;
+      width: min(92vw, 360px);
+      z-index: 2;
+    }
+    .player img {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      margin: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      object-fit: cover;
+    }
+    .player-info { flex: 1; text-align: left; overflow: hidden; }
+    .player-info h4 {
+      margin: 0; font-size: 14px; font-weight: 700;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .player-info p { margin: 2px 0 0; font-size: 12px; color: #777; }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .controls button {
+      background: #ee9ca7; border: none; color: white; font-size: 16px;
+      width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: 0.3s;
+    }
+    .controls button:hover { background: #ff6f91; }
+
+    /* ====== Desktop: centraliza como antes ====== */
+    @media (min-width: 768px) {
+      body {
+        justify-content: center;
+        padding: 0;
+      }
+      .carta { font-size: 18px; }
+      .container { width: min(90vw, var(--card-max)); padding: 30px; }
+    }
+
+@media (max-width: 768px) {
+  body {
+    display: block;      /* tira o flex no mobile */
+    padding: 16px;       /* respiro nas bordas */
+  }
+
+  .container {
+    margin: 40px auto;   /* afasta do topo e centraliza */
+    width: 95%;          /* largura mais natural */
+  }
+}
+
+/* Ajustes para telas grandes */
+@media (min-width: 1024px) {
+  .carta {
+    font-size: 15px;      /* reduz um pouco a fonte */
+    line-height: 1.5;     /* diminui o espaço entre linhas */
+    padding: 10px 20px;   /* menos respiro lateral */
+    max-height: 80vh;     /* evita que ocupe a tela toda */
+    overflow-y: auto;     /* ativa scroll se passar muito */
+  }
+
+  .container {
+    max-width: 500px;     /* deixa o bloco mais compacto */
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;   /* reduz fonte no mobile */
+  }
+
+  .container {
+    width: 92%;
+    padding: 15px;
+  }
+
+  .carta {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+/* cobre a tela toda e centraliza o card */
+#login-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8bfc8, #fddde6); /* seu fundo rosa */
+  z-index: 9999; /* fica por cima */
+}
+
+#login-overlay.hidden {
+  display: none; /* desaparece completamente */
+}
+
+#conteudo {
+  padding-bottom: 80px; /* espaço confortável sem exagerar */
+}
+
+@media (max-width: 768px) {
+  #conteudo {
+    padding-bottom: 45px; /* um pouco mais de espaço em telas menores */
+  }
+}
+
+
+  </style>
+</head>
+<body>
+ <div id="login-overlay">
+  <div class="container" id="login">
+    <h2>Digite seu nome 💌</h2>
+    <input type="text" id="nome" placeholder="Seu nome" />
+    <br />
+    <button onclick="verificar()">Entrar</button>
+    <p id="mensagem" style="color: red; font-weight: bold;"></p>
+  </div>
+</div>
+
+  <div class="container hidden" id="conteudo">
+    <h2>Para meu amorzinho, Alice ❤️</h2>
+    <img src="https://i.ibb.co/5WkZnxpp/image.png" alt="Nossa foto" />
+    <p class="carta">
+      Oi meu bem, sei que não sou bom escrevendo e acho que você também sabe disso, mas vim aqui com todo o meu coração dizer que Eu te amo. Desde quando a gente começou a se conhecer melhor, tudo na minha vida também melhorou! E não digo isso da boca para fora, você realmente se tornou uma das pessoas mais importantes da minha vida. Sei que muitas vezes eu realmente não demonstro tanto o meu amor por você, mas quero que você saiba que independente de tudo eu nunca irei deixar de te amar. Você merece o mundo, e muitas vezes sinto que não sou bom o bastante para você, porém eu sou incapaz de te dizer "Me deixe e vá atrás de alguém melhor" porque eu te amo, e por isso eu me vejo no dever de me tornar essa pessoa melhor que você merece. Eu percebi que realmente te amava quando eu já estava de joelhos rezando por você, e eu acho que essa é uma das formas mais belas de te amar. Dizer que te amo, não é o bastante para descrever o que eu sinto, pois meu amor por você vai muito além do que só uma frase. É um sentimento que supera todos os outros, e é o sentimento mais belo que eu já senti. Te escrevi essa pequena carta apenas para você saber como é importante para mim, sei que é algo extremamente simples, mas foi feita com o coração aberto e com lagrimas nos olhos. Eu não apenas te amo, Eu te vivo, Eu te suspiro, EU TE ALMO! Obrigado por Tudo. 💕
+    </p>
+  </div>
+
+  <!-- Player (só aparece depois do login) -->
+  <div class="player" id="player">
+    <img id="cover" src="" alt="Capa" />
+    <div class="player-info">
+      <h4 id="title"></h4>
+      <p id="artist"></p>
+    </div>
+    <div class="controls">
+      <button onclick="prevSong()">⏮</button>
+      <button onclick="togglePlay()" id="playBtn">\u25B6\uFE0E</button>
+      <button onclick="nextSong()">⏭</button>
+    </div>
+  </div>
+
+  <audio id="audio"></audio>
+
+  <script>
+    const songs = [
+      { title: "No Escuro", artist: "Anavitória", file: "no_escuro.mp3", cover: "https://deckdisc.com.br/wp-content/uploads/2022/08/Capa-No-Escuro-scaled-e1660073092293.jpg" },
+      { title: "Dizeres", artist: "Lourena e Sant", file: "dizeres.mp3", cover: "https://i.scdn.co/image/ab67616d0000b2738271dbeea8f10d929ba5f930" },
+      { title: "Portugal", artist: "Ananda", file: "portugal.mp3", cover: "https://i.scdn.co/image/ab67616d0000b2739cdea5b6c5a57bc418ae2b26" }
+    ];
+    let currentIndex = 0;
+    const audio = document.getElementById("audio");
+    const playBtn = document.getElementById("playBtn");
+
+  function verificar() {
+  const nome = document.getElementById("nome").value.trim();
+  const conteudo = document.getElementById("conteudo");
+  const mensagem = document.getElementById("mensagem");
+  const player = document.getElementById("player");
+  const loginOverlay = document.getElementById("login-overlay"); // pega o overlay
+
+  if (nome.toLowerCase() === "alice") {
+    // esconde o overlay inteiro
+    loginOverlay.classList.add("hidden");
+
+    // mostra conteúdo e player
+    conteudo.classList.remove("hidden");
+    player.style.display = "flex";
+
+    // inicia corações e música
+    iniciarCoracoes();
+    loadSong(currentIndex);
+    audio.play();
+    playBtn.textContent = "\u23F8\uFE0E";
+  } else {
+    mensagem.textContent = "Você não é meu amorzinho!! 😡";
+  }
+}
+
+
+    function iniciarCoracoes() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 700);
+    }
+
+    function loadSong(index) {
+      const song = songs[index];
+      document.getElementById("title").textContent = song.title;
+      document.getElementById("artist").textContent = song.artist;
+      document.getElementById("cover").src = song.cover;
+      audio.src = song.file;
+    }
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = "\u23F8\uFE0E";
+      } else {
+        audio.pause();
+        playBtn.textContent = "\u25B6\uFE0E";
+      }
+    }
+
+    function nextSong() {
+      currentIndex = (currentIndex + 1) % songs.length;
+      loadSong(currentIndex);
+      audio.play();
+      playBtn.textContent = "\u23F8\uFE0E";
+    }
+
+    function prevSong() {
+      currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+      loadSong(currentIndex);
+      audio.play();
+      playBtn.textContent = "\u23F8\uFE0E";
+    }
+  </script>
+</body>
+</html>
